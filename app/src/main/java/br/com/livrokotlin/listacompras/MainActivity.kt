@@ -16,8 +16,12 @@ class MainActivity : AppCompatActivity() {
 
         bt_adicionar.setOnClickListener {
             val produto = et_produto.text.toString()
-            produtosAdapter.add(produto)
-
+            if (produto.isNotEmpty()) {
+                produtosAdapter.add(produto)
+                et_produto.text.clear()
+            } else {
+                et_produto.error = "Preencha um produto"
+            }
         }
     }
 }
