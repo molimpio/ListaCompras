@@ -7,4 +7,5 @@
     <string name="r_0_00">R$ 0.00</string>
     <string name="total_0_00">TOTAL: 0,00</string>
     <string name="adicionar_itens">Adicionar itens</string>
+    <string name="qtde">Qtde</string>
 </resources>
