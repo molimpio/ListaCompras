@@ -2,6 +2,8 @@ package br.com.livrokotlin.listacompras
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -22,6 +24,14 @@ class MainActivity : AppCompatActivity() {
             } else {
                 et_produto.error = "Preencha um produto"
             }
+        }
+
+        lv_produtos.setOnItemLongClickListener { adapterView: AdapterView<*>, view: View, position: Int, id: Long ->
+
+            val item = produtosAdapter.getItem(position)
+            produtosAdapter.remove(item)
+            // return para indicar que o click deu certo
+            true
         }
     }
 }
