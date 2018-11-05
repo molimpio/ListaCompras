@@ -17,11 +17,11 @@
         android:layout_marginBottom="15dp" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:src="@drawable/produto_sem_foto"
         android:id="@+id/img_foto_produto"
-        android:layout_gravity="center_vertical" />
+        android:layout_gravity="center_horizontal" />
 
     <EditText
         android:layout_width="match_parent"

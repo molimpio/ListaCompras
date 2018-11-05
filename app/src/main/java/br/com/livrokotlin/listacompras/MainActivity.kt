@@ -3,10 +3,9 @@ package br.com.livrokotlin.listacompras
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.NumberFormat
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,20 +13,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val produtosAdapter = ProdutoAdapter(this)
+        lv_produtos.adapter = produtosAdapter
+
         bt_adicionar.setOnClickListener {
             val intent = Intent(this, CadastroActivity::class.java)
             startActivity(intent)
         }
-
-//        val produtosAdapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1)
-//        lv_produtos.adapter = produtosAdapter
-//
-//        lv_produtos.setOnItemLongClickListener { adapterView: AdapterView<*>, view: View, position: Int, id: Long ->
-//
-//            val item = produtosAdapter.getItem(position)
-//            produtosAdapter.remove(item)
-//            // return para indicar que o click deu certo
-//            true
-//        }
     }
+
+    override fun onResume() {
+        super.onResume()
+        val adapter = lv_produtos.adapter as ProdutoAdapter
+        adapter.clear()
+        adapter.addAll(produtosGlobal)
+        val soma = produtosGlobal.sumByDouble { it.valor * it.quantidade }
+        val f = NumberFormat.getCurrencyInstance(Locale("pt", "br"))
+        tv_total.text = "Total: ${f.format(soma)}"
+    }
+
 }

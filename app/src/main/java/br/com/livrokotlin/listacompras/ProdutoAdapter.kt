@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import java.text.NumberFormat
-import java.util.*
+import java.util.Locale
 
 class ProdutoAdapter(contexto: Context) : ArrayAdapter<Produto>(contexto, 0) {
 
@@ -29,7 +29,7 @@ class ProdutoAdapter(contexto: Context) : ArrayAdapter<Produto>(contexto, 0) {
         tvQtde.text = item.quantidade.toString()
         tvProduto.text = item.nome
 
-        val f = NumberFormat.getCurrencyInstance(Locale("pt", "bt"))
+        val f = NumberFormat.getCurrencyInstance(Locale("pt", "br"))
         tvValor.text = f.format(item.valor)
 
         if (item.foto != null) ivProduto.setImageBitmap(item.foto)
