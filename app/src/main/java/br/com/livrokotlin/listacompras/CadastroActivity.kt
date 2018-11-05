@@ -6,8 +6,9 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import kotlinx.android.synthetic.main.activity_cadastro.*
+import org.jetbrains.anko.db.insert
+import org.jetbrains.anko.toast
 
 class CadastroActivity : AppCompatActivity() {
 
@@ -25,13 +26,22 @@ class CadastroActivity : AppCompatActivity() {
 
             if (produto.isNotEmpty() && qtde.isNotEmpty() && valor.isNotEmpty()) {
 
-                val prod = Produto(produto, qtde.toInt(), valor.toDouble(), imageBitmap)
-                produtosGlobal.add(prod)
+                database.use {
+                    val produtoId = insert("produtos",
+                            "nome" to produto,
+                            "quantidade" to qtde,
+                            "valor" to valor.toDouble(),
+                            "foto" to imageBitmap?.toByteArray())
 
-                et_produto.text.clear()
-                et_qtde.text.clear()
-                et_valor.text.clear()
-
+                    if (produtoId != -1L) {
+                        toast("Produto cadastrado com sucesso")
+                        et_produto.text.clear()
+                        et_qtde.text.clear()
+                        et_valor.text.clear()
+                    } else {
+                        toast("Erro ao cadastrar produto")
+                    }
+                }
             } else {
                 et_produto.error = if (et_produto.text.isEmpty()) "Preencha um produto !"  else null
                 et_qtde.error = if (et_qtde.text.isEmpty()) "Preencha qtde !" else null
